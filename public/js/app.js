@@ -7,19 +7,22 @@ const place = document.querySelector(".location");
 const search = document.getElementsByClassName("input")[0]; // Assuming there is only one element with the "input" class
 const search_btn = document.querySelector(".search-btn");
 const clockForm = document.querySelector(".clock-form");
+const loader = document.getElementById("loader");
 
 clockForm.addEventListener("submit", (event) => {
   event.preventDefault();
-  time.textContent = "loading...";
+  loader.style.display = "block";
   day.textContent = "";
   date.textContent = "";
   place.textContent = "";
+  time.textContent = "";
 
   const address = search.value;
   console.log(address);
 
   fetch("/time?address=" + address).then((response) => {
     response.json().then((data) => {
+      loader.style.display = "none";
       if (data.error) {
         time.textContent = data.error;
         day.textContent = "";
@@ -28,7 +31,7 @@ clockForm.addEventListener("submit", (event) => {
         console.log("not working");
       } else {
         place.textContent = address;
-        time.textContent = data.time;
+        time.textContent = "Time: " + data.time;
         day.textContent = data.dayOfWeek;
         date.textContent = data.day + "/" + data.month + "/" + data.year;
 
