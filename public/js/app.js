@@ -10,6 +10,10 @@ const clockForm = document.querySelector(".clock-form");
 
 clockForm.addEventListener("submit", (event) => {
   event.preventDefault();
+  time.textContent = "loading...";
+  day.textContent = "";
+  date.textContent = "";
+  place.textContent = "";
 
   const address = search.value;
   console.log(address);
@@ -20,6 +24,7 @@ clockForm.addEventListener("submit", (event) => {
         time.textContent = data.error;
         day.textContent = "";
         date.textContent = "";
+        place.textContent = "";
         console.log("not working");
       } else {
         place.textContent = address;
